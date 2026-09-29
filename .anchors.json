@@ -1,0 +1,400 @@
+{
+  "index.html" : [ {
+    "id" : "html_header",
+    "line" : 10,
+    "preview" : "<!-- @anchor: html_header -->"
+  }, {
+    "id" : "html_header_end",
+    "line" : 23,
+    "preview" : "<!-- @anchor: html_header_end -->"
+  }, {
+    "id" : "html_upload",
+    "line" : 25,
+    "preview" : "<!-- @anchor: html_upload -->"
+  }, {
+    "id" : "html_upload_end",
+    "line" : 44,
+    "preview" : "<!-- @anchor: html_upload_end -->"
+  }, {
+    "id" : "html_summary",
+    "line" : 46,
+    "preview" : "<!-- @anchor: html_summary -->"
+  }, {
+    "id" : "html_summary_end",
+    "line" : 52,
+    "preview" : "<!-- @anchor: html_summary_end -->"
+  }, {
+    "id" : "html_controls",
+    "line" : 54,
+    "preview" : "<!-- @anchor: html_controls -->"
+  }, {
+    "id" : "html_controls_end",
+    "line" : 88,
+    "preview" : "<!-- @anchor: html_controls_end -->"
+  }, {
+    "id" : "html_iterations",
+    "line" : 90,
+    "preview" : "<!-- @anchor: html_iterations -->"
+  }, {
+    "id" : "html_iterations_end",
+    "line" : 93,
+    "preview" : "<!-- @anchor: html_iterations_end -->"
+  } ],
+  "parse.js" : [ {
+    "id" : "parse_tot_desc",
+    "line" : 1,
+    "preview" : "// @anchor: parse_tot_desc"
+  }, {
+    "id" : "parse_tool_kinds",
+    "line" : 9,
+    "preview" : "// @anchor: parse_tool_kinds"
+  }, {
+    "id" : "parse_tool_kinds_end",
+    "line" : 41,
+    "preview" : "// @anchor: parse_tool_kinds_end"
+  }, {
+    "id" : "parse_decode",
+    "line" : 43,
+    "preview" : "// @anchor: parse_decode"
+  }, {
+    "id" : "parse_decode_end",
+    "line" : 56,
+    "preview" : "// @anchor: parse_decode_end"
+  }, {
+    "id" : "parse_jsonl",
+    "line" : 58,
+    "preview" : "// @anchor: parse_jsonl"
+  }, {
+    "id" : "parse_jsonl_end",
+    "line" : 75,
+    "preview" : "// @anchor: parse_jsonl_end"
+  }, {
+    "id" : "parse_hash",
+    "line" : 77,
+    "preview" : "// @anchor: parse_hash"
+  }, {
+    "id" : "parse_hash_end",
+    "line" : 86,
+    "preview" : "// @anchor: parse_hash_end"
+  }, {
+    "id" : "parse_message_key",
+    "line" : 88,
+    "preview" : "// @anchor: parse_message_key"
+  }, {
+    "id" : "parse_message_key_end",
+    "line" : 106,
+    "preview" : "// @anchor: parse_message_key_end"
+  }, {
+    "id" : "parse_merge",
+    "line" : 108,
+    "preview" : "// @anchor: parse_merge"
+  }, {
+    "id" : "parse_merge_end",
+    "line" : 160,
+    "preview" : "// @anchor: parse_merge_end"
+  }, {
+    "id" : "parse_char_count",
+    "line" : 162,
+    "preview" : "// @anchor: parse_char_count"
+  }, {
+    "id" : "parse_char_count_end",
+    "line" : 181,
+    "preview" : "// @anchor: parse_char_count_end"
+  }, {
+    "id" : "parse_extract_calls",
+    "line" : 183,
+    "preview" : "// @anchor: parse_extract_calls"
+  }, {
+    "id" : "parse_extract_calls_end",
+    "line" : 290,
+    "preview" : "// @anchor: parse_extract_calls_end"
+  }, {
+    "id" : "parse_analyze",
+    "line" : 292,
+    "preview" : "// @anchor: parse_analyze"
+  }, {
+    "id" : "parse_analyze_end",
+    "line" : 346,
+    "preview" : "// @anchor: parse_analyze_end"
+  } ],
+  "script.js" : [ {
+    "id" : "script_tot_desc",
+    "line" : 1,
+    "preview" : "// @anchor: script_tot_desc"
+  }, {
+    "id" : "state_init",
+    "line" : 5,
+    "preview" : "// @anchor: state_init"
+  }, {
+    "id" : "state_init_end",
+    "line" : 20,
+    "preview" : "// @anchor: state_init_end"
+  }, {
+    "id" : "dom_refs",
+    "line" : 22,
+    "preview" : "// @anchor: dom_refs"
+  }, {
+    "id" : "dom_refs_end",
+    "line" : 43,
+    "preview" : "// @anchor: dom_refs_end"
+  }, {
+    "id" : "util_format",
+    "line" : 45,
+    "preview" : "// @anchor: util_format"
+  }, {
+    "id" : "util_format_end",
+    "line" : 75,
+    "preview" : "// @anchor: util_format_end"
+  }, {
+    "id" : "util_base64",
+    "line" : 77,
+    "preview" : "// @anchor: util_base64"
+  }, {
+    "id" : "util_base64_end",
+    "line" : 88,
+    "preview" : "// @anchor: util_base64_end"
+  }, {
+    "id" : "upload_file",
+    "line" : 90,
+    "preview" : "// @anchor: upload_file"
+  }, {
+    "id" : "upload_file_end",
+    "line" : 113,
+    "preview" : "// @anchor: upload_file_end"
+  }, {
+    "id" : "load_examples",
+    "line" : 115,
+    "preview" : "// @anchor: load_examples"
+  }, {
+    "id" : "load_examples_end",
+    "line" : 155,
+    "preview" : "// @anchor: load_examples_end"
+  }, {
+    "id" : "render_entry",
+    "line" : 157,
+    "preview" : "// @anchor: render_entry"
+  }, {
+    "id" : "render_entry_end",
+    "line" : 177,
+    "preview" : "// @anchor: render_entry_end"
+  }, {
+    "id" : "render_summary",
+    "line" : 179,
+    "preview" : "// @anchor: render_summary"
+  }, {
+    "id" : "render_summary_end",
+    "line" : 217,
+    "preview" : "// @anchor: render_summary_end"
+  }, {
+    "id" : "apply_filters",
+    "line" : 219,
+    "preview" : "// @anchor: apply_filters"
+  }, {
+    "id" : "apply_filters_end",
+    "line" : 291,
+    "preview" : "// @anchor: apply_filters_end"
+  }, {
+    "id" : "render_iterations",
+    "line" : 293,
+    "preview" : "// @anchor: render_iterations"
+  }, {
+    "id" : "render_iterations_end",
+    "line" : 349,
+    "preview" : "// @anchor: render_iterations_end"
+  }, {
+    "id" : "export_builders",
+    "line" : 351,
+    "preview" : "// @anchor: export_builders"
+  }, {
+    "id" : "export_builders_end",
+    "line" : 557,
+    "preview" : "// @anchor: export_builders_end"
+  }, {
+    "id" : "handle_export",
+    "line" : 559,
+    "preview" : "// @anchor: handle_export"
+  }, {
+    "id" : "handle_export_end",
+    "line" : 581,
+    "preview" : "// @anchor: handle_export_end"
+  }, {
+    "id" : "bind_events",
+    "line" : 583,
+    "preview" : "// @anchor: bind_events"
+  }, {
+    "id" : "bind_events_end",
+    "line" : 635,
+    "preview" : "// @anchor: bind_events_end"
+  }, {
+    "id" : "script_init",
+    "line" : 637,
+    "preview" : "// @anchor: script_init"
+  }, {
+    "id" : "script_init_end",
+    "line" : 646,
+    "preview" : "// @anchor: script_init_end"
+  } ],
+  "server.js" : [ {
+    "id" : "server_tot_desc",
+    "line" : 1,
+    "preview" : "// @anchor: server_tot_desc"
+  }, {
+    "id" : "server_mime",
+    "line" : 17,
+    "preview" : "// @anchor: server_mime"
+  }, {
+    "id" : "server_mime_end",
+    "line" : 30,
+    "preview" : "// @anchor: server_mime_end"
+  }, {
+    "id" : "server_helpers",
+    "line" : 32,
+    "preview" : "// @anchor: server_helpers"
+  }, {
+    "id" : "server_helpers_end",
+    "line" : 68,
+    "preview" : "// @anchor: server_helpers_end"
+  }, {
+    "id" : "server_static",
+    "line" : 70,
+    "preview" : "// @anchor: server_static"
+  }, {
+    "id" : "server_static_end",
+    "line" : 100,
+    "preview" : "// @anchor: server_static_end"
+  }, {
+    "id" : "server_parse_api",
+    "line" : 102,
+    "preview" : "// @anchor: server_parse_api"
+  }, {
+    "id" : "server_parse_api_end",
+    "line" : 130,
+    "preview" : "// @anchor: server_parse_api_end"
+  }, {
+    "id" : "server_examples",
+    "line" : 132,
+    "preview" : "// @anchor: server_examples"
+  }, {
+    "id" : "server_examples_end",
+    "line" : 163,
+    "preview" : "// @anchor: server_examples_end"
+  }, {
+    "id" : "server_route",
+    "line" : 165,
+    "preview" : "// @anchor: server_route"
+  }, {
+    "id" : "server_route_end",
+    "line" : 189,
+    "preview" : "// @anchor: server_route_end"
+  }, {
+    "id" : "server_start",
+    "line" : 191,
+    "preview" : "// @anchor: server_start"
+  }, {
+    "id" : "server_start_end",
+    "line" : 217,
+    "preview" : "// @anchor: server_start_end"
+  } ],
+  "style.css" : [ {
+    "id" : "css_tot_desc",
+    "line" : 1,
+    "preview" : "/* @anchor: css_tot_desc */"
+  }, {
+    "id" : "css_reset",
+    "line" : 4,
+    "preview" : "/* @anchor: css_reset */"
+  }, {
+    "id" : "css_reset_end",
+    "line" : 38,
+    "preview" : "/* @anchor: css_reset_end */"
+  }, {
+    "id" : "css_layout",
+    "line" : 40,
+    "preview" : "/* @anchor: css_layout */"
+  }, {
+    "id" : "css_layout_end",
+    "line" : 82,
+    "preview" : "/* @anchor: css_layout_end */"
+  }, {
+    "id" : "css_upload",
+    "line" : 84,
+    "preview" : "/* @anchor: css_upload */"
+  }, {
+    "id" : "css_upload_end",
+    "line" : 168,
+    "preview" : "/* @anchor: css_upload_end */"
+  }, {
+    "id" : "css_buttons",
+    "line" : 170,
+    "preview" : "/* @anchor: css_buttons */"
+  }, {
+    "id" : "css_buttons_end",
+    "line" : 211,
+    "preview" : "/* @anchor: css_buttons_end */"
+  }, {
+    "id" : "css_summary",
+    "line" : 213,
+    "preview" : "/* @anchor: css_summary */"
+  }, {
+    "id" : "css_summary_end",
+    "line" : 273,
+    "preview" : "/* @anchor: css_summary_end */"
+  }, {
+    "id" : "css_controls",
+    "line" : 275,
+    "preview" : "/* @anchor: css_controls */"
+  }, {
+    "id" : "css_controls_end",
+    "line" : 318,
+    "preview" : "/* @anchor: css_controls_end */"
+  }, {
+    "id" : "css_iterations",
+    "line" : 320,
+    "preview" : "/* @anchor: css_iterations */"
+  }, {
+    "id" : "css_iterations_end",
+    "line" : 473,
+    "preview" : "/* @anchor: css_iterations_end */"
+  }, {
+    "id" : "css_responsive",
+    "line" : 475,
+    "preview" : "/* @anchor: css_responsive */"
+  }, {
+    "id" : "css_responsive_end",
+    "line" : 486,
+    "preview" : "/* @anchor: css_responsive_end */"
+  } ],
+  "UPDATE.md" : [ {
+    "id" : "log_001",
+    "line" : 3,
+    "preview" : "<!-- @anchor: log_001 -->"
+  }, {
+    "id" : "log_001_end",
+    "line" : 11,
+    "preview" : "<!-- @anchor: log_001_end -->"
+  }, {
+    "id" : "log_002",
+    "line" : 13,
+    "preview" : "<!-- @anchor: log_002 -->"
+  }, {
+    "id" : "log_002_end",
+    "line" : 19,
+    "preview" : "<!-- @anchor: log_002_end -->"
+  }, {
+    "id" : "log_003",
+    "line" : 22,
+    "preview" : "<!-- @anchor: log_003 -->"
+  }, {
+    "id" : "log_003_end",
+    "line" : 29,
+    "preview" : "<!-- @anchor: log_003_end -->"
+  }, {
+    "id" : "update_log_end",
+    "line" : 33,
+    "preview" : "<!-- @anchor: update_log_end -->"
+  }, {
+    "id" : "update_log_end_end",
+    "line" : 34,
+    "preview" : "<!-- @anchor: update_log_end_end -->"
+  } ]
+}

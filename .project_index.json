@@ -1,0 +1,476 @@
+{
+  "index.html" : [ {
+    "id" : "html_header",
+    "line" : 10,
+    "desc" : "顶部标题栏：工具名称与简短说明"
+  }, {
+    "id" : "html_header_end",
+    "line" : 23,
+    "desc" : ""
+  }, {
+    "id" : "html_upload",
+    "line" : 25,
+    "desc" : "上传区：拖放/选择文件、加载示例与状态提示"
+  }, {
+    "id" : "html_upload_end",
+    "line" : 44,
+    "desc" : ""
+  }, {
+    "id" : "html_summary",
+    "line" : 46,
+    "desc" : "汇总统计：文件信息与读/写/编译字符合计"
+  }, {
+    "id" : "html_summary_end",
+    "line" : 52,
+    "desc" : ""
+  }, {
+    "id" : "html_controls",
+    "line" : 54,
+    "desc" : "筛选与导出控制面板"
+  }, {
+    "id" : "html_controls_end",
+    "line" : 88,
+    "desc" : ""
+  }, {
+    "id" : "html_iterations",
+    "line" : 90,
+    "desc" : "迭代明细列表容器"
+  }, {
+    "id" : "html_iterations_end",
+    "line" : 93,
+    "desc" : ""
+  } ],
+  "parse.js" : [ {
+    "id" : "parse_tot_desc",
+    "line" : 1,
+    "desc" : "上下文转录解析核心：解压、逐行解析 JSONL、合并请求与响应、识别迭代、",
+    "symbol" : "classifyTool"
+  }, {
+    "id" : "parse_tool_kinds",
+    "line" : 9,
+    "desc" : "工具分类表：读入(蓝)、写入(红)、编译运行(绿)，未收录者归为其它",
+    "symbol" : "classifyTool"
+  }, {
+    "id" : "parse_tool_kinds_end",
+    "line" : 41,
+    "desc" : "",
+    "symbol" : "decodeBuffer"
+  }, {
+    "id" : "parse_decode",
+    "line" : 43,
+    "desc" : "依据 gzip 魔数决定解压还是按 UTF-8 解码，并去除 BOM",
+    "symbol" : "decodeBuffer"
+  }, {
+    "id" : "parse_decode_end",
+    "line" : 56,
+    "desc" : "",
+    "symbol" : "parseJsonl"
+  }, {
+    "id" : "parse_jsonl",
+    "line" : 58,
+    "desc" : "逐行解析 JSONL，记录空行与非法行信息",
+    "symbol" : "parseJsonl"
+  }, {
+    "id" : "parse_jsonl_end",
+    "line" : 75,
+    "desc" : "",
+    "symbol" : "hashString"
+  }, {
+    "id" : "parse_hash",
+    "line" : 77,
+    "desc" : "轻量 djb2 散列，为无标识消息生成稳定去重键",
+    "symbol" : "hashString"
+  }, {
+    "id" : "parse_hash_end",
+    "line" : 86,
+    "desc" : "",
+    "symbol" : "messageKey"
+  }, {
+    "id" : "parse_message_key",
+    "line" : 88,
+    "desc" : "为消息生成去重键：工具结果用调用ID，助手轮用工具调用ID，其余用角色+内容散列",
+    "symbol" : "messageKey"
+  }, {
+    "id" : "parse_message_key_end",
+    "line" : 106,
+    "desc" : "",
+    "symbol" : "buildConversation"
+  }, {
+    "id" : "parse_merge",
+    "line" : 108,
+    "desc" : "合并请求累积上下文与响应增量，按键去重并保持顺序，重建完整消息序列",
+    "symbol" : "buildConversation"
+  }, {
+    "id" : "parse_merge_end",
+    "line" : 160,
+    "desc" : "",
+    "symbol" : "computeCharLength"
+  }, {
+    "id" : "parse_char_count",
+    "line" : 162,
+    "desc" : "计算单次调用字符长度：读入取结果长度，写入取写入内容长度，编译取输出长度",
+    "symbol" : "computeCharLength"
+  }, {
+    "id" : "parse_char_count_end",
+    "line" : 181,
+    "desc" : "",
+    "symbol" : "extractIterations"
+  }, {
+    "id" : "parse_extract_calls",
+    "line" : 183,
+    "desc" : "以助手工具轮次为迭代，提取每轮工具调用并关联对应工具结果",
+    "symbol" : "extractIterations"
+  }, {
+    "id" : "parse_extract_calls_end",
+    "line" : 290,
+    "desc" : "",
+    "symbol" : "analyzeRaw"
+  }, {
+    "id" : "parse_analyze",
+    "line" : 292,
+    "desc" : "解析入口：从原始字节产出文件概览、分类统计、工具明细与迭代列表",
+    "symbol" : "analyzeRaw"
+  }, {
+    "id" : "parse_analyze_end",
+    "line" : 346,
+    "desc" : ""
+  } ],
+  "script.js" : [ {
+    "id" : "script_tot_desc",
+    "line" : 1,
+    "desc" : "前端交互逻辑：上传/拖放上下文文件、调用解析接口、渲染汇总与迭代明细，",
+    "symbol" : "fmtBytes"
+  }, {
+    "id" : "state_init",
+    "line" : 5,
+    "desc" : "全局状态：解析结果数据、当前筛选条件与预览截断长度",
+    "symbol" : "fmtBytes"
+  }, {
+    "id" : "state_init_end",
+    "line" : 20,
+    "desc" : "",
+    "symbol" : "fmtBytes"
+  }, {
+    "id" : "dom_refs",
+    "line" : 22,
+    "desc" : "缓存页面关键 DOM 引用",
+    "symbol" : "fmtBytes"
+  }, {
+    "id" : "dom_refs_end",
+    "line" : 43,
+    "desc" : "",
+    "symbol" : "fmtBytes"
+  }, {
+    "id" : "util_format",
+    "line" : 45,
+    "desc" : "通用格式化：字节、千分位数字与 HTML 转义",
+    "symbol" : "fmtBytes"
+  }, {
+    "id" : "util_format_end",
+    "line" : 75,
+    "desc" : "",
+    "symbol" : "arrayBufferToBase64"
+  }, {
+    "id" : "util_base64",
+    "line" : 77,
+    "desc" : "将 ArrayBuffer 分块转为 base64，避免超长文件触发调用栈溢出",
+    "symbol" : "arrayBufferToBase64"
+  }, {
+    "id" : "util_base64_end",
+    "line" : 88,
+    "desc" : "",
+    "symbol" : "uploadFile"
+  }, {
+    "id" : "upload_file",
+    "line" : 90,
+    "desc" : "读取本地文件为 base64 后提交解析接口",
+    "symbol" : "uploadFile"
+  }, {
+    "id" : "upload_file_end",
+    "line" : 113,
+    "desc" : "",
+    "symbol" : "loadExamples"
+  }, {
+    "id" : "load_examples",
+    "line" : 115,
+    "desc" : "拉取示例文件列表并支持一键加载",
+    "symbol" : "loadExamples"
+  }, {
+    "id" : "load_examples_end",
+    "line" : 155,
+    "desc" : "",
+    "symbol" : "onData"
+  }, {
+    "id" : "render_entry",
+    "line" : 157,
+    "desc" : "解析成功后的入口：更新状态并重绘所有区域",
+    "symbol" : "onData"
+  }, {
+    "id" : "render_entry_end",
+    "line" : 177,
+    "desc" : "",
+    "symbol" : "renderSummary"
+  }, {
+    "id" : "render_summary",
+    "line" : 179,
+    "desc" : "渲染文件概览卡片与各工具字符长度统计",
+    "symbol" : "renderSummary"
+  }, {
+    "id" : "render_summary_end",
+    "line" : 217,
+    "desc" : "",
+    "symbol" : "buildFilteredView"
+  }, {
+    "id" : "apply_filters",
+    "line" : 219,
+    "desc" : "依据筛选条件生成用于展示与导出的迭代视图（可选合并同名连续调用）",
+    "symbol" : "buildFilteredView"
+  }, {
+    "id" : "apply_filters_end",
+    "line" : 291,
+    "desc" : "",
+    "symbol" : "renderIterations"
+  }, {
+    "id" : "render_iterations",
+    "line" : 293,
+    "desc" : "渲染迭代列表：每轮展示提示、工具调用条目与其字符长度",
+    "symbol" : "renderIterations"
+  }, {
+    "id" : "render_iterations_end",
+    "line" : 349,
+    "desc" : "",
+    "symbol" : "readExportOptions"
+  }, {
+    "id" : "export_builders",
+    "line" : 351,
+    "desc" : "构造各导出格式的文本内容（完整 JSON / 精简 JSON / CSV / Markdown / 纯工具行）",
+    "symbol" : "readExportOptions"
+  }, {
+    "id" : "export_builders_end",
+    "line" : 557,
+    "desc" : "",
+    "symbol" : "handleExport"
+  }, {
+    "id" : "handle_export",
+    "line" : 559,
+    "desc" : "依据点击的导出按钮生成对应文件并下载",
+    "symbol" : "handleExport"
+  }, {
+    "id" : "handle_export_end",
+    "line" : 581,
+    "desc" : "",
+    "symbol" : "bindEvents"
+  }, {
+    "id" : "bind_events",
+    "line" : 583,
+    "desc" : "绑定拖放、文件选择、筛选控件与导出按钮事件",
+    "symbol" : "bindEvents"
+  }, {
+    "id" : "bind_events_end",
+    "line" : 635,
+    "desc" : "",
+    "symbol" : "init"
+  }, {
+    "id" : "script_init",
+    "line" : 637,
+    "desc" : "程序入口：绑定事件并加载示例列表",
+    "symbol" : "init"
+  }, {
+    "id" : "script_init_end",
+    "line" : 646,
+    "desc" : ""
+  } ],
+  "server.js" : [ {
+    "id" : "server_tot_desc",
+    "line" : 1,
+    "desc" : "本地 HTTP 服务：托管前端静态资源，并提供上下文文件解析与示例文件加载接口。",
+    "symbol" : "sendJson"
+  }, {
+    "id" : "server_mime",
+    "line" : 17,
+    "desc" : "静态资源扩展名到 MIME 类型的映射",
+    "symbol" : "sendJson"
+  }, {
+    "id" : "server_mime_end",
+    "line" : 30,
+    "desc" : "",
+    "symbol" : "sendJson"
+  }, {
+    "id" : "server_helpers",
+    "line" : 32,
+    "desc" : "统一 JSON 响应与请求体读取工具",
+    "symbol" : "sendJson"
+  }, {
+    "id" : "server_helpers_end",
+    "line" : 68,
+    "desc" : "",
+    "symbol" : "serveStatic"
+  }, {
+    "id" : "server_static",
+    "line" : 70,
+    "desc" : "读取并返回项目内的静态文件，阻止目录穿越",
+    "symbol" : "serveStatic"
+  }, {
+    "id" : "server_static_end",
+    "line" : 100,
+    "desc" : "",
+    "symbol" : "handleParse"
+  }, {
+    "id" : "server_parse_api",
+    "line" : 102,
+    "desc" : "接收 base64 文件数据，解码解析后返回结构化分析结果",
+    "symbol" : "handleParse"
+  }, {
+    "id" : "server_parse_api_end",
+    "line" : 130,
+    "desc" : "",
+    "symbol" : "listExamples"
+  }, {
+    "id" : "server_examples",
+    "line" : 132,
+    "desc" : "列出并可加载 example 目录中的示例转录文件",
+    "symbol" : "listExamples"
+  }, {
+    "id" : "server_examples_end",
+    "line" : 163,
+    "desc" : "",
+    "symbol" : "handleRequest"
+  }, {
+    "id" : "server_route",
+    "line" : 165,
+    "desc" : "请求路由：区分静态资源、解析接口与示例接口",
+    "symbol" : "handleRequest"
+  }, {
+    "id" : "server_route_end",
+    "line" : 189,
+    "desc" : "",
+    "symbol" : "start"
+  }, {
+    "id" : "server_start",
+    "line" : 191,
+    "desc" : "在端口范围内启动服务，端口被占用时自动后移",
+    "symbol" : "start"
+  }, {
+    "id" : "server_start_end",
+    "line" : 217,
+    "desc" : ""
+  } ],
+  "style.css" : [ {
+    "id" : "css_tot_desc",
+    "line" : 1,
+    "desc" : "全量上下文解析工具样式：深色主题，红=写入 / 蓝=读入 / 绿=compile，卡片式迭代明细。",
+    "symbol" : ":root"
+  }, {
+    "id" : "css_reset",
+    "line" : 4,
+    "desc" : "全局重置与基础排版",
+    "symbol" : ":root"
+  }, {
+    "id" : "css_reset_end",
+    "line" : 38,
+    "desc" : "",
+    "symbol" : ".app-header"
+  }, {
+    "id" : "css_layout",
+    "line" : 40,
+    "desc" : "页面主布局与顶部标题",
+    "symbol" : ".app-header"
+  }, {
+    "id" : "css_layout_end",
+    "line" : 82,
+    "desc" : "",
+    "symbol" : ".upload-panel"
+  }, {
+    "id" : "css_upload",
+    "line" : 84,
+    "desc" : "上传区：拖放框、示例列表与状态提示",
+    "symbol" : ".upload-panel"
+  }, {
+    "id" : "css_upload_end",
+    "line" : 168,
+    "desc" : "",
+    "symbol" : ".btn"
+  }, {
+    "id" : "css_buttons",
+    "line" : 170,
+    "desc" : "按钮与输入控件通用样式",
+    "symbol" : ".btn"
+  }, {
+    "id" : "css_buttons_end",
+    "line" : 211,
+    "desc" : "",
+    "symbol" : ".summary"
+  }, {
+    "id" : "css_summary",
+    "line" : 213,
+    "desc" : "汇总卡片与工具统计条",
+    "symbol" : ".summary"
+  }, {
+    "id" : "css_summary_end",
+    "line" : 273,
+    "desc" : "",
+    "symbol" : ".controls"
+  }, {
+    "id" : "css_controls",
+    "line" : 275,
+    "desc" : "筛选与导出控制条",
+    "symbol" : ".controls"
+  }, {
+    "id" : "css_controls_end",
+    "line" : 318,
+    "desc" : "",
+    "symbol" : ".iterations"
+  }, {
+    "id" : "css_iterations",
+    "line" : 320,
+    "desc" : "迭代卡片与工具调用条目",
+    "symbol" : ".iterations"
+  }, {
+    "id" : "css_iterations_end",
+    "line" : 473,
+    "desc" : "",
+    "symbol" : ".upload-panel"
+  }, {
+    "id" : "css_responsive",
+    "line" : 475,
+    "desc" : "小屏适配：单列布局",
+    "symbol" : ".upload-panel"
+  }, {
+    "id" : "css_responsive_end",
+    "line" : 486,
+    "desc" : ""
+  } ],
+  "UPDATE.md" : [ {
+    "id" : "log_001",
+    "line" : 3,
+    "desc" : "# 首次创建"
+  }, {
+    "id" : "log_001_end",
+    "line" : 11,
+    "desc" : ""
+  }, {
+    "id" : "log_002",
+    "line" : 13,
+    "desc" : "# 修复 run.bat 双击闪退"
+  }, {
+    "id" : "log_002_end",
+    "line" : 19,
+    "desc" : ""
+  }, {
+    "id" : "log_003",
+    "line" : 22,
+    "desc" : "# 导出新增可选「工具参数 / 工具结果」附加项"
+  }, {
+    "id" : "log_003_end",
+    "line" : 29,
+    "desc" : ""
+  }, {
+    "id" : "update_log_end",
+    "line" : 33,
+    "desc" : ""
+  }, {
+    "id" : "update_log_end_end",
+    "line" : 34,
+    "desc" : ""
+  } ]
+}

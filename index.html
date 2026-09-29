@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>全量上下文解析工具</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- @anchor: html_header -->
+  <!-- 顶部标题栏：工具名称与简短说明 -->
+  <header class="app-header">
+    <div class="app-header__main">
+      <h1>全量上下文解析工具</h1>
+      <p>上传 JSONL 上下文转录，识别迭代并提取各轮工具调用与字符长度。</p>
+    </div>
+    <div class="app-header__legend">
+      <span class="legend legend--read"><i></i>读入</span>
+      <span class="legend legend--write"><i></i>写入</span>
+      <span class="legend legend--compile"><i></i>compile_and_run</span>
+    </div>
+  </header>
+  <!-- @anchor: html_header_end -->
+
+  <!-- @anchor: html_upload -->
+  <!-- 上传区：拖放/选择文件、加载示例与状态提示 -->
+  <section class="upload-panel">
+    <div id="dropZone" class="drop-zone">
+      <p class="drop-zone__title">拖放文件到此处，或</p>
+      <label class="btn btn--primary">
+        选择文件
+        <input id="fileInput" type="file" accept=".jsonl,.json,.gz,.txt" hidden />
+      </label>
+      <p class="drop-zone__hint">支持 .jsonl / .json / .jsonl.gz（自动识别 gzip）</p>
+    </div>
+    <div class="upload-panel__side">
+      <div class="example-box">
+        <div class="example-box__head">示例文件</div>
+        <div id="exampleList" class="example-box__list">加载中…</div>
+      </div>
+      <p id="status" class="status">等待上传文件…</p>
+    </div>
+  </section>
+  <!-- @anchor: html_upload_end -->
+
+  <!-- @anchor: html_summary -->
+  <!-- 汇总统计：文件信息与读/写/编译字符合计 -->
+  <section class="summary" id="summary" hidden>
+    <div class="cards" id="summaryCards"></div>
+    <div class="tool-stats" id="toolStats"></div>
+  </section>
+  <!-- @anchor: html_summary_end -->
+
+  <!-- @anchor: html_controls -->
+  <!-- 筛选与导出控制面板 -->
+  <section class="controls" id="controls" hidden>
+    <div class="controls__group">
+      <span class="controls__label">工具类型</span>
+      <label class="chk chk--read"><input type="checkbox" data-kind="read" checked /> 读入</label>
+      <label class="chk chk--write"><input type="checkbox" data-kind="write" checked /> 写入</label>
+      <label class="chk chk--compile"><input type="checkbox" data-kind="compile" checked /> 编译</label>
+      <label class="chk chk--other"><input type="checkbox" data-kind="other" checked /> 其它</label>
+    </div>
+    <div class="controls__group">
+      <span class="controls__label">工具名</span>
+      <input id="toolNameFilter" class="text-input" type="text" placeholder="如 read_file" />
+    </div>
+    <div class="controls__group">
+      <span class="controls__label">最小字符</span>
+      <input id="minChars" class="num-input" type="number" min="0" value="0" />
+    </div>
+    <div class="controls__group">
+      <label class="chk"><input type="checkbox" id="onlyToolIters" checked /> 仅含工具调用的迭代</label>
+      <label class="chk"><input type="checkbox" id="mergeSame" /> 合并同名连续调用</label>
+    </div>
+    <div class="controls__group controls__group--export">
+      <span class="controls__label">导出</span>
+      <label class="chk"><input type="checkbox" id="exportFiltered" checked /> 仅导出当前筛选结果</label>
+      <label class="chk" title="在精简 JSON / CSV / Markdown / 纯文本中附加工具调用参数原文（完整 JSON 恒含参数）"><input type="checkbox" id="exportArgs" /> 含工具参数</label>
+      <label class="chk" title="在精简 JSON / CSV / Markdown / 纯文本中附加工具返回结果原文（完整 JSON 恒含结果）"><input type="checkbox" id="exportResult" /> 含工具结果</label>
+      <button class="btn" data-export="json">完整 JSON</button>
+      <button class="btn" data-export="compact">精简 JSON</button>
+      <button class="btn" data-export="csv">CSV</button>
+      <button class="btn" data-export="md">Markdown</button>
+      <button class="btn" data-export="txt">纯工具+字符</button>
+    </div>
+  </section>
+  <!-- @anchor: html_controls_end -->
+
+  <!-- @anchor: html_iterations -->
+  <!-- 迭代明细列表容器 -->
+  <section class="iterations" id="iterations"></section>
+  <!-- @anchor: html_iterations_end -->
+
+  <script src="script.js"></script>
+</body>
+</html>
