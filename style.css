@@ -210,6 +210,85 @@ body {
 .text-input { width: 160px; }
 /* @anchor: css_buttons_end */
 
+/* @anchor: css_fail */
+/* 失败状态配色、失败统计条与失败类别筛选控件 */
+:root {
+  --fail: #ff7a45;
+  --fail-bg: rgba(255, 122, 69, 0.16);
+  --empty: #f5c542;
+  --empty-bg: rgba(245, 197, 66, 0.14);
+}
+
+.card--fail { border-left: 3px solid var(--fail); }
+.card--empty { border-left: 3px solid var(--empty); }
+
+.fail-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.fail-stats:empty { display: none; }
+
+.stat-note {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.fail-chip {
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--fail);
+  background: var(--fail-bg);
+  color: var(--fail);
+}
+
+.fail-chip--tool {
+  border-color: var(--border);
+  background: transparent;
+  color: var(--muted);
+}
+
+.fail-kinds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chk--fail { color: var(--fail); }
+
+.call--fail { border-left-color: var(--fail); }
+
+.fail-badge {
+  font-size: 12px;
+  color: #1a1207;
+  background: var(--fail);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-weight: 600;
+}
+
+.status-badge {
+  font-size: 12px;
+  color: var(--empty);
+  background: var(--empty-bg);
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+
+.call__pre--fail {
+  border-color: var(--fail);
+  color: #ffd9c9;
+}
+.fail-inline { color: var(--fail); }
+
+
+/* @anchor: css_fail_end */
+
+
 /* @anchor: css_summary */
 /* 汇总卡片与工具统计条 */
 .summary {

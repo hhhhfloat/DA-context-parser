@@ -21,23 +21,23 @@
     "preview" : "<!-- @anchor: html_summary -->"
   }, {
     "id" : "html_summary_end",
-    "line" : 52,
+    "line" : 54,
     "preview" : "<!-- @anchor: html_summary_end -->"
   }, {
     "id" : "html_controls",
-    "line" : 54,
+    "line" : 56,
     "preview" : "<!-- @anchor: html_controls -->"
   }, {
     "id" : "html_controls_end",
-    "line" : 88,
+    "line" : 103,
     "preview" : "<!-- @anchor: html_controls_end -->"
   }, {
     "id" : "html_iterations",
-    "line" : 90,
+    "line" : 105,
     "preview" : "<!-- @anchor: html_iterations -->"
   }, {
     "id" : "html_iterations_end",
-    "line" : 93,
+    "line" : 108,
     "preview" : "<!-- @anchor: html_iterations_end -->"
   } ],
   "parse.js" : [ {
@@ -53,69 +53,138 @@
     "line" : 41,
     "preview" : "// @anchor: parse_tool_kinds_end"
   }, {
-    "id" : "parse_decode",
+    "id" : "parse_fail_kinds",
     "line" : 43,
+    "preview" : "// @anchor: parse_fail_kinds"
+  }, {
+    "id" : "parse_fail_kinds_end",
+    "line" : 93,
+    "preview" : "// @anchor: parse_fail_kinds_end"
+  }, {
+    "id" : "parse_fail_detect",
+    "line" : 95,
+    "preview" : "// @anchor: parse_fail_detect"
+  }, {
+    "id" : "parse_fail_detect_end",
+    "line" : 132,
+    "preview" : "// @anchor: parse_fail_detect_end"
+  }, {
+    "id" : "parse_decode",
+    "line" : 135,
     "preview" : "// @anchor: parse_decode"
   }, {
     "id" : "parse_decode_end",
-    "line" : 56,
+    "line" : 148,
     "preview" : "// @anchor: parse_decode_end"
   }, {
     "id" : "parse_jsonl",
-    "line" : 58,
+    "line" : 150,
     "preview" : "// @anchor: parse_jsonl"
   }, {
     "id" : "parse_jsonl_end",
-    "line" : 75,
+    "line" : 167,
     "preview" : "// @anchor: parse_jsonl_end"
   }, {
     "id" : "parse_hash",
-    "line" : 77,
+    "line" : 169,
     "preview" : "// @anchor: parse_hash"
   }, {
     "id" : "parse_hash_end",
-    "line" : 86,
+    "line" : 178,
     "preview" : "// @anchor: parse_hash_end"
   }, {
     "id" : "parse_message_key",
-    "line" : 88,
+    "line" : 180,
     "preview" : "// @anchor: parse_message_key"
   }, {
     "id" : "parse_message_key_end",
-    "line" : 106,
+    "line" : 198,
     "preview" : "// @anchor: parse_message_key_end"
   }, {
     "id" : "parse_merge",
-    "line" : 108,
+    "line" : 200,
     "preview" : "// @anchor: parse_merge"
   }, {
     "id" : "parse_merge_end",
-    "line" : 160,
+    "line" : 252,
     "preview" : "// @anchor: parse_merge_end"
   }, {
     "id" : "parse_char_count",
-    "line" : 162,
+    "line" : 254,
     "preview" : "// @anchor: parse_char_count"
   }, {
     "id" : "parse_char_count_end",
-    "line" : 181,
+    "line" : 273,
     "preview" : "// @anchor: parse_char_count_end"
   }, {
     "id" : "parse_extract_calls",
-    "line" : 183,
+    "line" : 275,
     "preview" : "// @anchor: parse_extract_calls"
   }, {
     "id" : "parse_extract_calls_end",
-    "line" : 290,
+    "line" : 395,
     "preview" : "// @anchor: parse_extract_calls_end"
   }, {
     "id" : "parse_analyze",
-    "line" : 292,
+    "line" : 397,
     "preview" : "// @anchor: parse_analyze"
   }, {
     "id" : "parse_analyze_end",
-    "line" : 346,
+    "line" : 499,
     "preview" : "// @anchor: parse_analyze_end"
+  } ],
+  "PROJECT.md" : [ {
+    "id" : "project_md_intro",
+    "line" : 1,
+    "preview" : "<!-- @anchor: project_md_intro -->"
+  }, {
+    "id" : "proj_overview",
+    "line" : 5,
+    "preview" : "<!-- @anchor: proj_overview -->"
+  }, {
+    "id" : "proj_overview_end",
+    "line" : 8,
+    "preview" : "<!-- @anchor: proj_overview_end -->"
+  }, {
+    "id" : "proj_arch",
+    "line" : 10,
+    "preview" : "<!-- @anchor: proj_arch -->"
+  }, {
+    "id" : "proj_arch_end",
+    "line" : 22,
+    "preview" : "<!-- @anchor: proj_arch_end -->"
+  }, {
+    "id" : "proj_decisions",
+    "line" : 24,
+    "preview" : "<!-- @anchor: proj_decisions -->"
+  }, {
+    "id" : "proj_decisions_end",
+    "line" : 32,
+    "preview" : "<!-- @anchor: proj_decisions_end -->"
+  }, {
+    "id" : "proj_conventions",
+    "line" : 34,
+    "preview" : "<!-- @anchor: proj_conventions -->"
+  }, {
+    "id" : "proj_conventions_end",
+    "line" : 42,
+    "preview" : "<!-- @anchor: proj_conventions_end -->"
+  }, {
+    "id" : "proj_limits",
+    "line" : 44,
+    "preview" : "<!-- @anchor: proj_limits -->"
+  }, {
+    "id" : "proj_limits_end",
+    "line" : 52,
+    "preview" : "<!-- @anchor: proj_limits_end -->"
+  }, {
+    "id" : "proj_start",
+    "line" : 54,
+    "preview" : "<!-- @anchor: proj_start -->"
+  }, {
+    "id" : "proj_start_end",
+    "line" : 57,
+    "preview" : "<!-- @anchor: proj_start_end -->"
   } ],
   "script.js" : [ {
     "id" : "script_tot_desc",
@@ -127,112 +196,124 @@
     "preview" : "// @anchor: state_init"
   }, {
     "id" : "state_init_end",
-    "line" : 20,
+    "line" : 24,
     "preview" : "// @anchor: state_init_end"
   }, {
     "id" : "dom_refs",
-    "line" : 22,
+    "line" : 26,
     "preview" : "// @anchor: dom_refs"
   }, {
     "id" : "dom_refs_end",
-    "line" : 43,
+    "line" : 50,
     "preview" : "// @anchor: dom_refs_end"
   }, {
     "id" : "util_format",
-    "line" : 45,
+    "line" : 52,
     "preview" : "// @anchor: util_format"
   }, {
     "id" : "util_format_end",
-    "line" : 75,
+    "line" : 82,
     "preview" : "// @anchor: util_format_end"
   }, {
     "id" : "util_base64",
-    "line" : 77,
+    "line" : 84,
     "preview" : "// @anchor: util_base64"
   }, {
     "id" : "util_base64_end",
-    "line" : 88,
+    "line" : 95,
     "preview" : "// @anchor: util_base64_end"
   }, {
     "id" : "upload_file",
-    "line" : 90,
+    "line" : 97,
     "preview" : "// @anchor: upload_file"
   }, {
     "id" : "upload_file_end",
-    "line" : 113,
+    "line" : 120,
     "preview" : "// @anchor: upload_file_end"
   }, {
     "id" : "load_examples",
-    "line" : 115,
+    "line" : 122,
     "preview" : "// @anchor: load_examples"
   }, {
     "id" : "load_examples_end",
-    "line" : 155,
+    "line" : 162,
     "preview" : "// @anchor: load_examples_end"
   }, {
     "id" : "render_entry",
-    "line" : 157,
+    "line" : 164,
     "preview" : "// @anchor: render_entry"
   }, {
     "id" : "render_entry_end",
-    "line" : 177,
+    "line" : 188,
     "preview" : "// @anchor: render_entry_end"
   }, {
+    "id" : "fail_filter",
+    "line" : 190,
+    "preview" : "// @anchor: fail_filter"
+  }, {
+    "id" : "fail_filter_end",
+    "line" : 237,
+    "preview" : "// @anchor: fail_filter_end"
+  }, {
     "id" : "render_summary",
-    "line" : 179,
+    "line" : 240,
     "preview" : "// @anchor: render_summary"
   }, {
     "id" : "render_summary_end",
-    "line" : 217,
+    "line" : 318,
     "preview" : "// @anchor: render_summary_end"
   }, {
     "id" : "apply_filters",
-    "line" : 219,
+    "line" : 320,
     "preview" : "// @anchor: apply_filters"
   }, {
     "id" : "apply_filters_end",
-    "line" : 291,
+    "line" : 426,
     "preview" : "// @anchor: apply_filters_end"
   }, {
     "id" : "render_iterations",
-    "line" : 293,
+    "line" : 428,
     "preview" : "// @anchor: render_iterations"
   }, {
     "id" : "render_iterations_end",
-    "line" : 349,
+    "line" : 500,
     "preview" : "// @anchor: render_iterations_end"
   }, {
     "id" : "export_builders",
-    "line" : 351,
+    "line" : 502,
     "preview" : "// @anchor: export_builders"
   }, {
     "id" : "export_builders_end",
-    "line" : 557,
+    "line" : 812,
     "preview" : "// @anchor: export_builders_end"
   }, {
     "id" : "handle_export",
-    "line" : 559,
+    "line" : 814,
     "preview" : "// @anchor: handle_export"
   }, {
     "id" : "handle_export_end",
-    "line" : 581,
+    "line" : 836,
     "preview" : "// @anchor: handle_export_end"
   }, {
     "id" : "bind_events",
-    "line" : 583,
+    "line" : 838,
     "preview" : "// @anchor: bind_events"
   }, {
     "id" : "bind_events_end",
-    "line" : 635,
+    "line" : 907,
     "preview" : "// @anchor: bind_events_end"
   }, {
     "id" : "script_init",
-    "line" : 637,
+    "line" : 909,
     "preview" : "// @anchor: script_init"
   }, {
     "id" : "script_init_end",
-    "line" : 646,
+    "line" : 918,
     "preview" : "// @anchor: script_init_end"
+  }, {
+    "id" : "script_file_end",
+    "line" : 919,
+    "preview" : "// @anchor: script_file_end"
   } ],
   "server.js" : [ {
     "id" : "server_tot_desc",
@@ -332,36 +413,44 @@
     "line" : 211,
     "preview" : "/* @anchor: css_buttons_end */"
   }, {
-    "id" : "css_summary",
+    "id" : "css_fail",
     "line" : 213,
+    "preview" : "/* @anchor: css_fail */"
+  }, {
+    "id" : "css_fail_end",
+    "line" : 289,
+    "preview" : "/* @anchor: css_fail_end */"
+  }, {
+    "id" : "css_summary",
+    "line" : 292,
     "preview" : "/* @anchor: css_summary */"
   }, {
     "id" : "css_summary_end",
-    "line" : 273,
+    "line" : 352,
     "preview" : "/* @anchor: css_summary_end */"
   }, {
     "id" : "css_controls",
-    "line" : 275,
+    "line" : 354,
     "preview" : "/* @anchor: css_controls */"
   }, {
     "id" : "css_controls_end",
-    "line" : 318,
+    "line" : 397,
     "preview" : "/* @anchor: css_controls_end */"
   }, {
     "id" : "css_iterations",
-    "line" : 320,
+    "line" : 399,
     "preview" : "/* @anchor: css_iterations */"
   }, {
     "id" : "css_iterations_end",
-    "line" : 473,
+    "line" : 552,
     "preview" : "/* @anchor: css_iterations_end */"
   }, {
     "id" : "css_responsive",
-    "line" : 475,
+    "line" : 554,
     "preview" : "/* @anchor: css_responsive */"
   }, {
     "id" : "css_responsive_end",
-    "line" : 486,
+    "line" : 565,
     "preview" : "/* @anchor: css_responsive_end */"
   } ],
   "UPDATE.md" : [ {
@@ -389,12 +478,20 @@
     "line" : 29,
     "preview" : "<!-- @anchor: log_003_end -->"
   }, {
-    "id" : "update_log_end",
+    "id" : "log_004",
     "line" : 33,
+    "preview" : "<!-- @anchor: log_004 -->"
+  }, {
+    "id" : "log_004_end",
+    "line" : 40,
+    "preview" : "<!-- @anchor: log_004_end -->"
+  }, {
+    "id" : "update_log_end",
+    "line" : 43,
     "preview" : "<!-- @anchor: update_log_end -->"
   }, {
     "id" : "update_log_end_end",
-    "line" : 34,
+    "line" : 44,
     "preview" : "<!-- @anchor: update_log_end_end -->"
   } ]
 }

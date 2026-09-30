@@ -18,26 +18,26 @@
   }, {
     "id" : "html_summary",
     "line" : 46,
-    "desc" : "汇总统计：文件信息与读/写/编译字符合计"
+    "desc" : "汇总统计：文件信息、读/写/编译字符合计与失败调用统计"
   }, {
     "id" : "html_summary_end",
-    "line" : 52,
+    "line" : 54,
     "desc" : ""
   }, {
     "id" : "html_controls",
-    "line" : 54,
+    "line" : 56,
     "desc" : "筛选与导出控制面板"
   }, {
     "id" : "html_controls_end",
-    "line" : 88,
+    "line" : 103,
     "desc" : ""
   }, {
     "id" : "html_iterations",
-    "line" : 90,
+    "line" : 105,
     "desc" : "迭代明细列表容器"
   }, {
     "id" : "html_iterations_end",
-    "line" : 93,
+    "line" : 108,
     "desc" : ""
   } ],
   "parse.js" : [ {
@@ -54,85 +54,158 @@
     "id" : "parse_tool_kinds_end",
     "line" : 41,
     "desc" : "",
+    "symbol" : "firstLineOf"
+  }, {
+    "id" : "parse_fail_kinds",
+    "line" : 43,
+    "desc" : "工具失败判别表：按工具结果文本开头的特征归类（先具体后笼统），集中维护",
+    "symbol" : "firstLineOf"
+  }, {
+    "id" : "parse_fail_kinds_end",
+    "line" : 93,
+    "desc" : "",
+    "symbol" : "firstLineOf"
+  }, {
+    "id" : "parse_fail_detect",
+    "line" : 95,
+    "desc" : "判定单次工具结果状态：ok 成功 / fail 失败 / empty 未找到 / none 无结果记录，并给出失败类别与首行原因",
+    "symbol" : "firstLineOf"
+  }, {
+    "id" : "parse_fail_detect_end",
+    "line" : 132,
+    "desc" : "",
     "symbol" : "decodeBuffer"
   }, {
     "id" : "parse_decode",
-    "line" : 43,
+    "line" : 135,
     "desc" : "依据 gzip 魔数决定解压还是按 UTF-8 解码，并去除 BOM",
     "symbol" : "decodeBuffer"
   }, {
     "id" : "parse_decode_end",
-    "line" : 56,
+    "line" : 148,
     "desc" : "",
     "symbol" : "parseJsonl"
   }, {
     "id" : "parse_jsonl",
-    "line" : 58,
+    "line" : 150,
     "desc" : "逐行解析 JSONL，记录空行与非法行信息",
     "symbol" : "parseJsonl"
   }, {
     "id" : "parse_jsonl_end",
-    "line" : 75,
+    "line" : 167,
     "desc" : "",
     "symbol" : "hashString"
   }, {
     "id" : "parse_hash",
-    "line" : 77,
+    "line" : 169,
     "desc" : "轻量 djb2 散列，为无标识消息生成稳定去重键",
     "symbol" : "hashString"
   }, {
     "id" : "parse_hash_end",
-    "line" : 86,
+    "line" : 178,
     "desc" : "",
     "symbol" : "messageKey"
   }, {
     "id" : "parse_message_key",
-    "line" : 88,
+    "line" : 180,
     "desc" : "为消息生成去重键：工具结果用调用ID，助手轮用工具调用ID，其余用角色+内容散列",
     "symbol" : "messageKey"
   }, {
     "id" : "parse_message_key_end",
-    "line" : 106,
+    "line" : 198,
     "desc" : "",
     "symbol" : "buildConversation"
   }, {
     "id" : "parse_merge",
-    "line" : 108,
+    "line" : 200,
     "desc" : "合并请求累积上下文与响应增量，按键去重并保持顺序，重建完整消息序列",
     "symbol" : "buildConversation"
   }, {
     "id" : "parse_merge_end",
-    "line" : 160,
+    "line" : 252,
     "desc" : "",
     "symbol" : "computeCharLength"
   }, {
     "id" : "parse_char_count",
-    "line" : 162,
+    "line" : 254,
     "desc" : "计算单次调用字符长度：读入取结果长度，写入取写入内容长度，编译取输出长度",
     "symbol" : "computeCharLength"
   }, {
     "id" : "parse_char_count_end",
-    "line" : 181,
+    "line" : 273,
     "desc" : "",
     "symbol" : "extractIterations"
   }, {
     "id" : "parse_extract_calls",
-    "line" : 183,
-    "desc" : "以助手工具轮次为迭代，提取每轮工具调用并关联对应工具结果",
+    "line" : 275,
+    "desc" : "以助手工具轮次为迭代，提取每轮工具调用，关联工具结果并判定成功/失败状态",
     "symbol" : "extractIterations"
   }, {
     "id" : "parse_extract_calls_end",
-    "line" : 290,
+    "line" : 395,
     "desc" : "",
     "symbol" : "analyzeRaw"
   }, {
     "id" : "parse_analyze",
-    "line" : 292,
-    "desc" : "解析入口：从原始字节产出文件概览、分类统计、工具明细与迭代列表",
+    "line" : 397,
+    "desc" : "解析入口：从原始字节产出文件概览、分类统计、失败统计、工具明细与迭代列表",
     "symbol" : "analyzeRaw"
   }, {
     "id" : "parse_analyze_end",
-    "line" : 346,
+    "line" : 499,
+    "desc" : ""
+  } ],
+  "PROJECT.md" : [ {
+    "id" : "project_md_intro",
+    "line" : 1,
+    "desc" : "项目说明：定位、架构、关键决策、约定与限制"
+  }, {
+    "id" : "proj_overview",
+    "line" : 5,
+    "desc" : "# 项目定位"
+  }, {
+    "id" : "proj_overview_end",
+    "line" : 8,
+    "desc" : ""
+  }, {
+    "id" : "proj_arch",
+    "line" : 10,
+    "desc" : "# 整体架构"
+  }, {
+    "id" : "proj_arch_end",
+    "line" : 22,
+    "desc" : ""
+  }, {
+    "id" : "proj_decisions",
+    "line" : 24,
+    "desc" : "# 关键决策"
+  }, {
+    "id" : "proj_decisions_end",
+    "line" : 32,
+    "desc" : ""
+  }, {
+    "id" : "proj_conventions",
+    "line" : 34,
+    "desc" : "# 规范约定"
+  }, {
+    "id" : "proj_conventions_end",
+    "line" : 42,
+    "desc" : ""
+  }, {
+    "id" : "proj_limits",
+    "line" : 44,
+    "desc" : "# 已知限制与坑"
+  }, {
+    "id" : "proj_limits_end",
+    "line" : 52,
+    "desc" : ""
+  }, {
+    "id" : "proj_start",
+    "line" : 54,
+    "desc" : "# 启动方式"
+  }, {
+    "id" : "proj_start_end",
+    "line" : 57,
     "desc" : ""
   } ],
   "script.js" : [ {
@@ -143,142 +216,156 @@
   }, {
     "id" : "state_init",
     "line" : 5,
-    "desc" : "全局状态：解析结果数据、当前筛选条件与预览截断长度",
+    "desc" : "全局状态：解析结果数据、当前筛选条件（含调用结果与失败类别）与预览截断长度",
     "symbol" : "fmtBytes"
   }, {
     "id" : "state_init_end",
-    "line" : 20,
+    "line" : 24,
     "desc" : "",
     "symbol" : "fmtBytes"
   }, {
     "id" : "dom_refs",
-    "line" : 22,
+    "line" : 26,
     "desc" : "缓存页面关键 DOM 引用",
     "symbol" : "fmtBytes"
   }, {
     "id" : "dom_refs_end",
-    "line" : 43,
+    "line" : 50,
     "desc" : "",
     "symbol" : "fmtBytes"
   }, {
     "id" : "util_format",
-    "line" : 45,
+    "line" : 52,
     "desc" : "通用格式化：字节、千分位数字与 HTML 转义",
     "symbol" : "fmtBytes"
   }, {
     "id" : "util_format_end",
-    "line" : 75,
+    "line" : 82,
     "desc" : "",
     "symbol" : "arrayBufferToBase64"
   }, {
     "id" : "util_base64",
-    "line" : 77,
+    "line" : 84,
     "desc" : "将 ArrayBuffer 分块转为 base64，避免超长文件触发调用栈溢出",
     "symbol" : "arrayBufferToBase64"
   }, {
     "id" : "util_base64_end",
-    "line" : 88,
+    "line" : 95,
     "desc" : "",
     "symbol" : "uploadFile"
   }, {
     "id" : "upload_file",
-    "line" : 90,
+    "line" : 97,
     "desc" : "读取本地文件为 base64 后提交解析接口",
     "symbol" : "uploadFile"
   }, {
     "id" : "upload_file_end",
-    "line" : 113,
+    "line" : 120,
     "desc" : "",
     "symbol" : "loadExamples"
   }, {
     "id" : "load_examples",
-    "line" : 115,
+    "line" : 122,
     "desc" : "拉取示例文件列表并支持一键加载",
     "symbol" : "loadExamples"
   }, {
     "id" : "load_examples_end",
-    "line" : 155,
+    "line" : 162,
     "desc" : "",
     "symbol" : "onData"
   }, {
     "id" : "render_entry",
-    "line" : 157,
-    "desc" : "解析成功后的入口：更新状态并重绘所有区域",
+    "line" : 164,
+    "desc" : "解析成功后的入口：更新状态、初始化失败类别筛选并重绘所有区域",
     "symbol" : "onData"
   }, {
     "id" : "render_entry_end",
-    "line" : 177,
+    "line" : 188,
+    "desc" : "",
+    "symbol" : "initFailKinds"
+  }, {
+    "id" : "fail_filter",
+    "line" : 190,
+    "desc" : "失败类别筛选：依据解析结果动态生成类别复选项，并提供筛选判定与重绘入口",
+    "symbol" : "initFailKinds"
+  }, {
+    "id" : "fail_filter_end",
+    "line" : 237,
     "desc" : "",
     "symbol" : "renderSummary"
   }, {
     "id" : "render_summary",
-    "line" : 179,
-    "desc" : "渲染文件概览卡片与各工具字符长度统计",
+    "line" : 240,
+    "desc" : "渲染概览卡片、工具统计条与失败统计；筛选生效时汇总口径随筛选结果联动",
     "symbol" : "renderSummary"
   }, {
     "id" : "render_summary_end",
-    "line" : 217,
+    "line" : 318,
     "desc" : "",
     "symbol" : "buildFilteredView"
   }, {
     "id" : "apply_filters",
-    "line" : 219,
-    "desc" : "依据筛选条件生成用于展示与导出的迭代视图（可选合并同名连续调用）",
+    "line" : 320,
+    "desc" : "依据筛选条件（工具总类 / 调用结果 / 失败类别 / 工具名 / 最小字符）生成展示与导出视图",
     "symbol" : "buildFilteredView"
   }, {
     "id" : "apply_filters_end",
-    "line" : 291,
+    "line" : 426,
     "desc" : "",
     "symbol" : "renderIterations"
   }, {
     "id" : "render_iterations",
-    "line" : 293,
-    "desc" : "渲染迭代列表：每轮展示提示、工具调用条目与其字符长度",
+    "line" : 428,
+    "desc" : "渲染迭代列表：每轮展示提示、工具调用条目、状态标记与其字符长度",
     "symbol" : "renderIterations"
   }, {
     "id" : "render_iterations_end",
-    "line" : 349,
+    "line" : 500,
     "desc" : "",
     "symbol" : "readExportOptions"
   }, {
     "id" : "export_builders",
-    "line" : 351,
+    "line" : 502,
     "desc" : "构造各导出格式的文本内容（完整 JSON / 精简 JSON / CSV / Markdown / 纯工具行）",
     "symbol" : "readExportOptions"
   }, {
     "id" : "export_builders_end",
-    "line" : 557,
+    "line" : 812,
     "desc" : "",
     "symbol" : "handleExport"
   }, {
     "id" : "handle_export",
-    "line" : 559,
+    "line" : 814,
     "desc" : "依据点击的导出按钮生成对应文件并下载",
     "symbol" : "handleExport"
   }, {
     "id" : "handle_export_end",
-    "line" : 581,
+    "line" : 836,
     "desc" : "",
     "symbol" : "bindEvents"
   }, {
     "id" : "bind_events",
-    "line" : 583,
-    "desc" : "绑定拖放、文件选择、筛选控件与导出按钮事件",
+    "line" : 838,
+    "desc" : "绑定拖放、文件选择、筛选控件（含调用结果与失败类别）与导出按钮事件",
     "symbol" : "bindEvents"
   }, {
     "id" : "bind_events_end",
-    "line" : 635,
+    "line" : 907,
     "desc" : "",
     "symbol" : "init"
   }, {
     "id" : "script_init",
-    "line" : 637,
+    "line" : 909,
     "desc" : "程序入口：绑定事件并加载示例列表",
     "symbol" : "init"
   }, {
     "id" : "script_init_end",
-    "line" : 646,
+    "line" : 918,
     "desc" : ""
+  }, {
+    "id" : "script_file_end",
+    "line" : 919,
+    "desc" : "脚本文件末尾（无附加逻辑）"
   } ],
   "server.js" : [ {
     "id" : "server_tot_desc",
@@ -399,45 +486,55 @@
     "id" : "css_buttons_end",
     "line" : 211,
     "desc" : "",
+    "symbol" : ":root"
+  }, {
+    "id" : "css_fail",
+    "line" : 213,
+    "desc" : "失败状态配色、失败统计条与失败类别筛选控件",
+    "symbol" : ":root"
+  }, {
+    "id" : "css_fail_end",
+    "line" : 289,
+    "desc" : "",
     "symbol" : ".summary"
   }, {
     "id" : "css_summary",
-    "line" : 213,
+    "line" : 292,
     "desc" : "汇总卡片与工具统计条",
     "symbol" : ".summary"
   }, {
     "id" : "css_summary_end",
-    "line" : 273,
+    "line" : 352,
     "desc" : "",
     "symbol" : ".controls"
   }, {
     "id" : "css_controls",
-    "line" : 275,
+    "line" : 354,
     "desc" : "筛选与导出控制条",
     "symbol" : ".controls"
   }, {
     "id" : "css_controls_end",
-    "line" : 318,
+    "line" : 397,
     "desc" : "",
     "symbol" : ".iterations"
   }, {
     "id" : "css_iterations",
-    "line" : 320,
+    "line" : 399,
     "desc" : "迭代卡片与工具调用条目",
     "symbol" : ".iterations"
   }, {
     "id" : "css_iterations_end",
-    "line" : 473,
+    "line" : 552,
     "desc" : "",
     "symbol" : ".upload-panel"
   }, {
     "id" : "css_responsive",
-    "line" : 475,
+    "line" : 554,
     "desc" : "小屏适配：单列布局",
     "symbol" : ".upload-panel"
   }, {
     "id" : "css_responsive_end",
-    "line" : 486,
+    "line" : 565,
     "desc" : ""
   } ],
   "UPDATE.md" : [ {
@@ -465,12 +562,20 @@
     "line" : 29,
     "desc" : ""
   }, {
-    "id" : "update_log_end",
+    "id" : "log_004",
     "line" : 33,
+    "desc" : "# 新增工具调用失败解析与失败类别/工具总类筛选"
+  }, {
+    "id" : "log_004_end",
+    "line" : 40,
+    "desc" : ""
+  }, {
+    "id" : "update_log_end",
+    "line" : 43,
     "desc" : ""
   }, {
     "id" : "update_log_end_end",
-    "line" : 34,
+    "line" : 44,
     "desc" : ""
   } ]
 }

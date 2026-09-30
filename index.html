@@ -44,22 +44,36 @@
   <!-- @anchor: html_upload_end -->
 
   <!-- @anchor: html_summary -->
-  <!-- 汇总统计：文件信息与读/写/编译字符合计 -->
+  <!-- 汇总统计：文件信息、读/写/编译字符合计与失败调用统计 -->
   <section class="summary" id="summary" hidden>
     <div class="cards" id="summaryCards"></div>
     <div class="tool-stats" id="toolStats"></div>
+    <div class="fail-stats" id="failStats"></div>
   </section>
+
   <!-- @anchor: html_summary_end -->
 
   <!-- @anchor: html_controls -->
   <!-- 筛选与导出控制面板 -->
   <section class="controls" id="controls" hidden>
     <div class="controls__group">
-      <span class="controls__label">工具类型</span>
+      <span class="controls__label">工具类型（总类）</span>
       <label class="chk chk--read"><input type="checkbox" data-kind="read" checked /> 读入</label>
       <label class="chk chk--write"><input type="checkbox" data-kind="write" checked /> 写入</label>
       <label class="chk chk--compile"><input type="checkbox" data-kind="compile" checked /> 编译</label>
       <label class="chk chk--other"><input type="checkbox" data-kind="other" checked /> 其它</label>
+    </div>
+    <div class="controls__group">
+      <span class="controls__label">调用结果</span>
+      <label class="chk"><input type="radio" name="statusFilter" value="all" checked /> 全部</label>
+      <label class="chk"><input type="radio" name="statusFilter" value="ok" /> 仅成功</label>
+      <label class="chk chk--fail"><input type="radio" name="statusFilter" value="fail" /> 仅失败</label>
+      <label class="chk"><input type="radio" name="statusFilter" value="empty" /> 仅未找到</label>
+      <label class="chk"><input type="radio" name="statusFilter" value="none" /> 仅无记录</label>
+    </div>
+    <div class="controls__group" id="failKindGroup" hidden>
+      <span class="controls__label">失败类别</span>
+      <div class="fail-kinds" id="failKinds"></div>
     </div>
     <div class="controls__group">
       <span class="controls__label">工具名</span>
@@ -85,6 +99,7 @@
       <button class="btn" data-export="txt">纯工具+字符</button>
     </div>
   </section>
+
   <!-- @anchor: html_controls_end -->
 
   <!-- @anchor: html_iterations -->

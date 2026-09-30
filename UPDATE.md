@@ -30,5 +30,15 @@
 
 
 
+<!-- @anchor: log_004 -->
+## 新增工具调用失败解析与失败类别/工具总类筛选
+- 后端（parse.js）：新增 `parse_fail_kinds` 判定表（FAIL_RULES + FAIL_KIND_LABEL、EMPTY_RULES + EMPTY_KIND_LABEL）与 `parse_fail_detect` 判定函数（firstLineOf / detectResultState / applyResultState）。判定完全依据工具结果文本首行特征，覆盖 workflow-read-only tools 包的实际返回形态：安全扫描拦截（security）、只能操作/写入工作项目·路径 ..·以 . 开头·UPDATE.md 不支持读取·不能删除目录（access）、缺少参数·未知工具（arg）、编译失败与编译超时及「编译成功但无 main 方法」（compile）、运行失败·阻塞·启动即退出·运行超时（run）、写入/读取/删除/列目录/解析结构/重建索引失败等（io）、文件或项目路径不存在·锚点不存在或不唯一·尚无项目索引（notfound）、两锚点间无内容或位置非法（state），其余以 ❌/⛔/⏱️/⚠️ 开头者归 other；「🔍 未找到匹配」单列为 empty，非失败。
+- 后端统计：每次调用新增 status / failed / failKind / failLabel / failReason；迭代卡新增 failCalls / emptyCalls；analyzeRaw 新增 failures 汇总（calls、chars、byKind、byTool）与 summary.failedCalls / emptyCalls / noneCalls，toolStats 补 failed / failedChars。
+- 前端（index.html / style.css / script.js）：新增「调用结果」单选（全部/仅成功/仅失败/仅未找到/仅无记录）与「失败类别」多选（按解析结果动态生成、可整组隐藏），「工具类型」标注为（总类）；`fail_filter` 锚点集中实现类别初始化、单调用放行判定与筛选生效判定，`buildFilteredView` 统一承担总类/结果/类别/工具名/最小字符筛选，汇总卡片与失败统计条随筛选联动（新增「失败调用」「未找到 / 无记录」卡片，失败类别与失败来源工具统计条）；迭代与调用条目对失败加色标、失败类别徽标、失败次数与失败原因折叠面板，合并同名连续调用时汇总失败类别与原因。
+- 导出：CSV（10 列）/ Markdown / 纯文本恒定新增「状态」「失败类别」「失败原因」，精简 JSON 新增 status / failed / failKind / failReason，完整 JSON 保留 failures 汇总。
+- 验证：`tmp/test-context-fail.js`（DOM 打桩端到端）合成 31 次调用覆盖全部失败形态并回归 example 真实日志，断言类别归类、汇总计数、结果/类别/总类筛选、合并模式与五种导出格式，全部 104 项通过；验证后已移除 parse.js / script.js 内的临时测试钩子并复跑通过。
+<!-- @anchor: log_004_end -->
+
+
 <!-- @anchor: update_log_end -->
 <!-- @anchor: update_log_end_end -->

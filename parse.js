@@ -40,6 +40,98 @@ function classifyTool(name) {
 }
 // @anchor: parse_tool_kinds_end
 
+// @anchor: parse_fail_kinds
+// 工具失败判别表：按工具结果文本开头的特征归类（先具体后笼统），集中维护
+// 特征来源：workflow-read-only 的 tools 包各工具返回值（❌ 参数/路径/权限/不存在/读写异常、
+// 编译失败、运行失败与超时/阻塞、🔍 未找到匹配、📌 无索引等）
+const FAIL_KIND_LABEL = {
+  security: '安全拦截',
+  access: '路径或工作区限制',
+  arg: '参数缺失或非法',
+  compile: '编译失败',
+  run: '运行失败或超时',
+  io: '读写或执行异常',
+  notfound: '文件或锚点不存在',
+  state: '锚点状态冲突',
+  other: '其它失败'
+};
+
+const EMPTY_KIND_LABEL = { empty: '未找到匹配' };
+
+const FAIL_RULES = [
+  { kind: 'security', re: /^❌ 安全扫描拦截/ },
+  {
+    kind: 'access',
+    re: /^(❌ (只能(修改|操作|写入)工作项目|路径中不允许出现|不允许访问以 \. 开头|UPDATE\.md)|⚠️ 不能删除目录)/
+  },
+  { kind: 'arg', re: /^(❌ (缺少参数|position 必须是|必须指定 file 参数)|未知工具)/ },
+  {
+    kind: 'compile',
+    re: /^(编译失败|❌ (Maven 编译失败|Maven 编译被中断|执行 Maven 失败|在 [^\n]+ 下未找到 pom\.xml))|^⏱️ [^\n]*编译超时|^✅ [\s\S]*但未找到包含 main 方法的类/
+  },
+  {
+    kind: 'run',
+    re: /^(运行失败|⛔ |⚠️ [^\n]*启动后立即退出)|^⏱️ [^\n]*运行超时|^✅ [\s\S]*但运行失败/
+  },
+  {
+    kind: 'io',
+    re: /^(写入文件失败|读取文件失败|删除文件失败|列出目录失败|编译\/运行异常|单文件 Java 执行异常)|^❌ [^\n]*(插入|删除|读取|描述锚点|解析文件结构|重建锚点索引|刷新锚点位置|刷新项目索引|重建项目索引)失败/
+  },
+  {
+    kind: 'notfound',
+    re: /^(❌ (文件|项目目录|路径)不存在|❌ 锚点不存在|❌ 项目路径无效|❌ 无法推导项目|❌ 在文件 [^\n]* 中未找到唯一锚点|文件不存在|路径不存在或不是目录|HTML 文件不存在)|^📌 [^\n]*(不存在|没有锚点记录|尚无项目索引)/
+  },
+  {
+    kind: 'state',
+    re: /^⚠️ 两个锚点之间没有内容可(删除|读取)|^❌ (两个锚点不在同一|起始锚点必须在结束锚点之前)/
+  },
+  { kind: 'other', re: /^(❌|⛔|⏱️|⚠️)/ }
+];
+
+const EMPTY_RULES = [{ kind: 'empty', re: /^🔍 未找到/ }];
+
+// @anchor: parse_fail_kinds_end
+
+// @anchor: parse_fail_detect
+// 判定单次工具结果状态：ok 成功 / fail 失败 / empty 未找到 / none 无结果记录，并给出失败类别与首行原因
+function firstLineOf(text, limit) {
+  const line = String(text).split('\n')[0].trim();
+  return line.length > limit ? line.slice(0, limit) + '…' : line;
+}
+
+function detectResultState(text) {
+  const raw = text == null ? '' : String(text);
+  const body = raw.trim();
+  if (!body) {
+    return { status: 'none', kind: '', label: '无结果记录', reason: '' };
+  }
+  const reason = firstLineOf(body, 200);
+  for (const rule of FAIL_RULES) {
+    if (rule.re.test(body)) {
+      return { status: 'fail', kind: rule.kind, label: FAIL_KIND_LABEL[rule.kind] || rule.kind, reason: reason };
+    }
+  }
+  for (const rule of EMPTY_RULES) {
+    if (rule.re.test(body)) {
+      return { status: 'empty', kind: rule.kind, label: EMPTY_KIND_LABEL[rule.kind] || rule.kind, reason: reason };
+    }
+  }
+  return { status: 'ok', kind: '', label: '', reason: '' };
+}
+
+// 将判定结果回填到调用对象
+function applyResultState(call) {
+  const verdict = detectResultState(call.resultText);
+  call.status = verdict.status;
+  call.failed = verdict.status === 'fail';
+  call.failKind = verdict.kind;
+  call.failLabel = verdict.label;
+  call.failReason = verdict.reason;
+}
+
+// @anchor: parse_fail_detect_end
+
+
 // @anchor: parse_decode
 // 依据 gzip 魔数决定解压还是按 UTF-8 解码，并去除 BOM
 function decodeBuffer(buffer) {
@@ -181,7 +273,7 @@ function computeCharLength(call) {
 // @anchor: parse_char_count_end
 
 // @anchor: parse_extract_calls
-// 以助手工具轮次为迭代，提取每轮工具调用并关联对应工具结果
+// 以助手工具轮次为迭代，提取每轮工具调用，关联工具结果并判定成功/失败状态
 function extractIterations(messages) {
   const iterations = [];
   const callIndex = new Map();
@@ -211,6 +303,8 @@ function extractIterations(messages) {
           fromResponse: msg._source === 'response',
           calls: [],
           charLength: 0,
+          failCalls: 0,
+          emptyCalls: 0,
           totals: { read: 0, write: 0, compile: 0, other: 0 }
         };
         for (const tc of calls) {
@@ -233,7 +327,12 @@ function extractIterations(messages) {
             argsLength: argsText ? argsText.length : 0,
             resultText: '',
             resultLength: 0,
-            charLength: 0
+            charLength: 0,
+            status: 'none',
+            failed: false,
+            failKind: '',
+            failLabel: '',
+            failReason: ''
           };
           iter.calls.push(call);
           if (call.id) callIndex.set(call.id, call);
@@ -251,6 +350,8 @@ function extractIterations(messages) {
           fromResponse: msg._source === 'response',
           calls: [],
           charLength: 0,
+          failCalls: 0,
+          emptyCalls: 0,
           totals: { read: 0, write: 0, compile: 0, other: 0 }
         });
         pendingUser = null;
@@ -269,6 +370,7 @@ function extractIterations(messages) {
       if (call) {
         call.resultText = text;
         call.resultLength = text.length;
+        applyResultState(call);
       }
     }
   }
@@ -281,16 +383,19 @@ function extractIterations(messages) {
       total += len;
       const bucket = it.totals[call.kind] != null ? call.kind : 'other';
       it.totals[bucket] += len;
+      if (call.status === 'fail') it.failCalls++;
+      else if (call.status === 'empty') it.emptyCalls++;
     }
     it.charLength = total;
   }
 
   return iterations;
 }
+
 // @anchor: parse_extract_calls_end
 
 // @anchor: parse_analyze
-// 解析入口：从原始字节产出文件概览、分类统计、工具明细与迭代列表
+// 解析入口：从原始字节产出文件概览、分类统计、失败统计、工具明细与迭代列表
 function analyzeRaw(buffer, fileName) {
   const text = decodeBuffer(buffer);
   const parsed = parseJsonl(text);
@@ -301,6 +406,9 @@ function analyzeRaw(buffer, fileName) {
     iterations: iterations.length,
     toolIterations: iterations.filter((it) => it.kind === 'tools').length,
     toolCalls: 0,
+    failedCalls: 0,
+    emptyCalls: 0,
+    noneCalls: 0,
     totals: {
       read: { calls: 0, chars: 0 },
       write: { calls: 0, chars: 0 },
@@ -311,6 +419,9 @@ function analyzeRaw(buffer, fileName) {
   };
 
   const toolStats = {};
+  const failKindMap = {};
+  const failToolMap = {};
+
   for (const it of iterations) {
     for (const call of it.calls) {
       summary.toolCalls++;
@@ -320,11 +431,52 @@ function analyzeRaw(buffer, fileName) {
       summary.totalChars += call.charLength;
       const st =
         toolStats[call.name] ||
-        (toolStats[call.name] = { name: call.name, kind: call.kind, calls: 0, chars: 0 });
+        (toolStats[call.name] = {
+          name: call.name,
+          kind: call.kind,
+          calls: 0,
+          chars: 0,
+          failed: 0,
+          failedChars: 0
+        });
       st.calls++;
       st.chars += call.charLength;
+
+      if (call.status === 'fail') {
+        summary.failedCalls++;
+        st.failed++;
+        st.failedChars += call.charLength;
+        const fk =
+          failKindMap[call.failKind] ||
+          (failKindMap[call.failKind] = {
+            kind: call.failKind,
+            label: call.failLabel || call.failKind,
+            calls: 0,
+            chars: 0
+          });
+        fk.calls++;
+        fk.chars += call.charLength;
+        const ft =
+          failToolMap[call.name] ||
+          (failToolMap[call.name] = { name: call.name, kind: call.kind, calls: 0, chars: 0 });
+        ft.calls++;
+        ft.chars += call.charLength;
+      } else if (call.status === 'empty') {
+        summary.emptyCalls++;
+      } else if (call.status === 'none') {
+        summary.noneCalls++;
+      }
     }
   }
+
+  const failures = {
+    calls: summary.failedCalls,
+    chars: Object.keys(failKindMap).reduce((sum, k) => sum + failKindMap[k].chars, 0),
+    emptyCalls: summary.emptyCalls,
+    noneCalls: summary.noneCalls,
+    byKind: Object.values(failKindMap).sort((a, b) => b.calls - a.calls || b.chars - a.chars),
+    byTool: Object.values(failToolMap).sort((a, b) => b.calls - a.calls || b.chars - a.chars)
+  };
 
   return {
     file: {
@@ -338,6 +490,7 @@ function analyzeRaw(buffer, fileName) {
     },
     tools: conv.toolNames,
     summary,
+    failures,
     toolStats: Object.values(toolStats).sort((a, b) => b.chars - a.chars),
     iterations
   };
