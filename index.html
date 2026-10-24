@@ -54,8 +54,13 @@
   <!-- @anchor: html_summary_end -->
 
   <!-- @anchor: html_controls -->
-  <!-- 筛选与导出控制面板 -->
+  <!-- 筛选与导出控制面板；导出区把「附加内容」独立成组，工具参数与工具结果各自独立可选 -->
   <section class="controls" id="controls" hidden>
+    <div class="controls__group">
+      <span class="controls__label">视图</span>
+      <label class="chk" title="按轮分组展示每次调用及其字符长度"><input type="radio" name="viewMode" value="list" checked /> 调用列表</label>
+      <label class="chk" title="自上而下按轮次顺序排列；每轮内容为 ① 推理内容 ② 工具调用与结果（调用下方紧跟其对应结果，结果可压缩展开），并可勾选轮次与调用单独导出"><input type="radio" name="viewMode" value="rounds" /> 按轮次整理</label>
+    </div>
     <div class="controls__group">
       <span class="controls__label">工具类型（总类）</span>
       <label class="chk chk--read"><input type="checkbox" data-kind="read" checked /> 读入</label>
@@ -88,17 +93,30 @@
       <label class="chk"><input type="checkbox" id="mergeSame" /> 合并同名连续调用</label>
     </div>
     <div class="controls__group controls__group--export">
-      <span class="controls__label">导出</span>
+      <span class="controls__label">导出范围</span>
       <label class="chk"><input type="checkbox" id="exportFiltered" checked /> 仅导出当前筛选结果</label>
-      <label class="chk" title="在精简 JSON / CSV / Markdown / 纯文本中附加工具调用参数原文（完整 JSON 恒含参数）"><input type="checkbox" id="exportArgs" /> 含工具参数</label>
-      <label class="chk" title="在精简 JSON / CSV / Markdown / 纯文本中附加工具返回结果原文（完整 JSON 恒含结果）"><input type="checkbox" id="exportResult" /> 含工具结果</label>
+      <span class="controls__label">附加内容（各自独立）</span>
+      <label class="chk" title="在精简 JSON / CSV / Markdown / 纯文本 / 轮次 Markdown / 选定导出中附加推理内容与助手文本"><input type="checkbox" id="exportReasoning" checked /> 含推理内容</label>
+      <label class="chk" title="只控制工具参数原文（function.arguments）：关闭后所有导出格式都不写参数原文，仅保留「参数字符」统计；与「含工具结果」互不影响"><input type="checkbox" id="exportArgs" /> 含工具参数</label>
+      <label class="chk" title="只控制工具结果原文：关闭后所有导出格式都不写结果原文（失败原因也只留占位），仅保留「结果字符」统计；与「含工具参数」互不影响"><input type="checkbox" id="exportResult" /> 含工具结果</label>
+      <label class="chk" title="勾选后工具结果原文集中到导出文件末尾的「附录：工具结果」，正文每次调用只留引用编号与摘要，避免长结果把参数与调用结构冲出视野"><input type="checkbox" id="exportResultAppendix" checked /> 结果移到文末附录</label>
+      <span class="export-note">参数与结果各自独立：未勾选的附加内容会在导出文件中标注「导出设置：不含 …」，对应字符长度统计始终保留；完整 JSON 恒含全部原文</span>
+      <span class="controls__label">整份导出</span>
       <button class="btn" data-export="json">完整 JSON</button>
       <button class="btn" data-export="compact">精简 JSON</button>
       <button class="btn" data-export="csv">CSV</button>
       <button class="btn" data-export="md">Markdown</button>
+      <button class="btn" data-export="rounds" title="按轮次整理导出：① 推理内容 ② 工具调用与结果（调用与结果配对）">轮次 Markdown</button>
       <button class="btn" data-export="txt">纯工具+字符</button>
+      <span class="controls__label">单卷导出（只含一类原文）</span>
+      <button class="btn" data-export="args-md" title="只导出工具参数原文，每次调用一段，绝不含结果原文，不受「附加内容」开关影响">仅参数 Markdown</button>
+      <button class="btn" data-export="result-md" title="只导出工具结果原文，每次调用一段，绝不含参数原文，不受「附加内容」开关影响">仅结果 Markdown</button>
+      <span class="controls__label">选定</span>
+      <button class="btn" data-export="sel-md" title="仅导出「按轮次整理」视图中勾选的轮次与调用（Markdown，受上方附加内容开关控制）">选定 Markdown</button>
+      <button class="btn" data-export="sel-json" title="仅导出「按轮次整理」视图中勾选的轮次与调用（JSON，受上方附加内容开关控制）">选定 JSON</button>
     </div>
   </section>
+
 
   <!-- @anchor: html_controls_end -->
 
@@ -106,6 +124,13 @@
   <!-- 迭代明细列表容器 -->
   <section class="iterations" id="iterations"></section>
   <!-- @anchor: html_iterations_end -->
+
+  <!-- @anchor: html_rounds -->
+  <!-- 按轮次整理视图：自上而下顺序展开各轮，每轮内容为 ① 推理内容 ② 工具调用与结果（成对顺序，结果可压缩） -->
+  <section class="rounds" id="rounds" hidden></section>
+
+  <!-- @anchor: html_rounds_end -->
+
 
   <script src="script.js"></script>
 </body>

@@ -274,6 +274,11 @@ function computeCharLength(call) {
 
 // @anchor: parse_extract_calls
 // 以助手工具轮次为迭代，提取每轮工具调用，关联工具结果并判定成功/失败状态
+function pickReasoning(msg) {
+  const v = msg.reasoning_content || msg.reasoning || msg.thinking;
+  return typeof v === 'string' ? v : '';
+}
+
 function extractIterations(messages) {
   const iterations = [];
   const callIndex = new Map();
@@ -292,13 +297,14 @@ function extractIterations(messages) {
     if (role === 'assistant') {
       const calls = Array.isArray(msg.tool_calls) ? msg.tool_calls : [];
       const text = typeof msg.content === 'string' ? msg.content : '';
+      const reasoning = pickReasoning(msg);
       if (calls.length) {
         const iter = {
           index: iterations.length + 1,
           kind: 'tools',
           user: pendingUser,
           assistantText: text,
-          reasoning: msg.reasoning_content || '',
+          reasoning: reasoning,
           usage: msg._usage || null,
           fromResponse: msg._source === 'response',
           calls: [],
@@ -345,7 +351,7 @@ function extractIterations(messages) {
           kind: 'answer',
           user: pendingUser,
           assistantText: text,
-          reasoning: msg.reasoning_content || '',
+          reasoning: reasoning,
           usage: msg._usage || null,
           fromResponse: msg._source === 'response',
           calls: [],
@@ -396,6 +402,7 @@ function extractIterations(messages) {
 
 // @anchor: parse_analyze
 // 解析入口：从原始字节产出文件概览、分类统计、失败统计、工具明细与迭代列表
+// 汇总同时给出参数字符与结果字符分项合计，供导出时区分「参数」与「结果」两类内容
 function analyzeRaw(buffer, fileName) {
   const text = decodeBuffer(buffer);
   const parsed = parseJsonl(text);
@@ -415,7 +422,9 @@ function analyzeRaw(buffer, fileName) {
       compile: { calls: 0, chars: 0 },
       other: { calls: 0, chars: 0 }
     },
-    totalChars: 0
+    totalChars: 0,
+    argsChars: 0,
+    resultChars: 0
   };
 
   const toolStats = {};
@@ -429,6 +438,8 @@ function analyzeRaw(buffer, fileName) {
       bucket.calls++;
       bucket.chars += call.charLength;
       summary.totalChars += call.charLength;
+      summary.argsChars += call.argsLength || 0;
+      summary.resultChars += call.resultLength || 0;
       const st =
         toolStats[call.name] ||
         (toolStats[call.name] = {
@@ -495,6 +506,7 @@ function analyzeRaw(buffer, fileName) {
     iterations
   };
 }
+
 
 // @anchor: parse_analyze_end
 

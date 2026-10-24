@@ -40,5 +40,47 @@
 <!-- @anchor: log_004_end -->
 
 
+<!-- @anchor: log_005 -->
+## 新增「按轮次整理」视图（推理 + 调用 + 结果三段折叠、调用与结果一一配对）
+- 前端结构（index.html）：筛选条新增「视图」单选（调用列表 / 按轮次整理，name=viewMode）；新增 `#rounds` 容器（`html_rounds` 锚点）承载轮次卡片；导出组新增「轮次 Markdown」按钮（data-export="rounds"）。
+- 轮次视图（script.js `rounds_view` 锚点）：`renderView` 按 state.view 切换 `#iterations` / `#rounds` 显隐；`buildRoundView` 复用 buildFilteredView 并临时关闭「合并同名调用」以保持调用与结果一一对应，同时补齐 reasoning；`renderRoundCard` 生成 `<details>` 折叠卡，卡头给出轮次号、轮型、失败数与「推理字符 / 调用次数 / 结果条数 / 涉及字符」，卡体依序为 ①推理内容（含助手文本折叠）②工具调用 ③工具结果，两部分条目共用 `#i` 编号与 `→ 结果 #i` 提示实现配对，结果条目另示状态/失败类别/结果字符与计入字符。
+- 样式（style.css）：新增 `css_rounds` 区块（轮次卡、三部分左侧色条、配对条目按 read/write/compile/other 着色、失败覆盖色、编号徽标）；新增 `css_hidden` 区块 `[hidden]{display:none!important}`，修复 `.controls` / `.iterations` 等自带 display 规则时 hidden 属性失效（此前筛选条在上传前就可见）。
+- 导出（script.js `rounds_export` 锚点）：`collectRounds` / `buildRoundsExportData` / `toRoundsMarkdown` 生成按轮次整理的 Markdown（汇总头 + 每轮三段 + 编号配对），推理内容恒定导出，参数与结果原文受既有「含工具参数 / 含工具结果」开关控制，四反引号围栏避免原文三反引号截断。
+- 后端（parse.js）：`pickReasoning` 兼容 reasoning_content / reasoning / thinking 三种推理字段命名，迭代对象 reasoning 由此取值。
+- 验证：`tmp/test-rounds.js`（DOM 打桩）用真实 example 校验——轮次卡片 7 张、三部分顺序、配对条目 24（12 调用 ×2）、编号提示、第 1 轮在第 2 轮之前、切回列表后轮次容器隐藏、仅写入筛选后残留读入条目为 0、轮次 Markdown 结构正常；example 统计不回归（8 迭代 / 7 工具轮 / 12 调用 / 读 376 / 写 12702）；验证后删除临时脚本。
+<!-- @anchor: log_005_end -->
+
+
+<!-- @anchor: log_006 -->
+## 轮次视图改为「调用+结果」成对展示 + 任一勾选的选定导出
+- 视图结构（script.js `rounds_view` 锚点）：轮次卡由 `<details>/<summary>` 改为 div 头部 + 折叠体，头部内嵌勾选框与展开按钮（summary 内点击会连带折叠，故放弃 details）；轮次内容压缩为 ① 推理内容 ② 工具调用与结果，`renderPairBlock` 让每次调用下方紧邻其结果块，结果块用 details 压缩成一行摘要（`结果 #i` + 状态 + 首行 80 字符预览 + 结果字符/计入字符），展开看原文；失败结果仍按失败色描边，`peekLine` 取首行预览。
+- 勾选模型（新锚点 `rounds_select`）：`state.selection` 存 rounds（轮次序号）与 calls（`轮次:原始轮次内序号`，由 `buildCallNoMap` 生成，避免筛选后编号漂移）；`syncSelection` 只刷新计数与勾选态不重绘以保留展开；轮次勾选连带全部调用，勾选单次调用自动带上所属轮次；`handleRoundsAction` 支持全选 / 清空 / 展开结果 / 压缩结果，`bindRoundsEvents` 用事件委托区分工具条、勾选框与头部展开；载入新文件时 `clearSelection` 重置。
+- 选定导出（script.js `rounds_export` / `handle_export`）：`collectSelectedRounds` 按轮次顺序只取勾选调用，`buildSelectionExportData` 用其中内容重算汇总；新增 `toSelectionJson`；`toRoundsMarkdown` 改为 ① 推理 ② 调用与结果配对结构并支持 `opts.reasoning`；导出按钮新增 `sel-md` / `sel-json`，空选定时给出提示。
+- 导出附加内容：`readExportOptions` 增加 reasoning（对应新复选框 `#exportReasoning`，默认开启，此前推理恒导出）；精简 JSON 在开关开启时附加每轮 reasoning / assistantText；`toMarkdown` / `toPlain` 的附加内容说明同步。
+- 界面（index.html / style.css）：导出组新增「含推理内容」与「选定 Markdown / 选定 JSON」；轮次视图顶部工具条 `rounds-bar`（计数 + 全选 / 清空 / 展开结果 / 压缩结果）；`css_rounds` 重写为卡片头部、勾选框、`pair-block` / `result-box` / `result-head__peek`、`btn--mini`、选中轮次描边等样式，移除原 details/summary 与 `.pair-item--*` 规则。
+- 验证：DOM 打桩 + 真实 example（parse.js）离线校验——默认筛选下轮次数=工具轮次 7、视图调用 12、每轮成对区块数与结果摘要数等于调用数且恒为「调用→结果」顺序、结果默认压缩、轮次内容默认折叠、勾选/取消/全选/清空与选定集合一致、选定汇总字符等于所选调用之和、选定 Markdown 不含被取消的调用、选定 JSON 结构与非空校验；`tmp/check-static.js` 校验 CSS 括号配平与 id/类引用齐全；example 统计不回归（8 迭代 / 7 工具轮 / 12 调用 / 读 376 / 写 12702）。验证后移除 script.js 临时导出钩子与临时测试脚本。
+<!-- @anchor: log_006_end -->
+
+
+<!-- @anchor: log_007 -->
+## 导出附加内容「工具参数」独立可选化与省略标注
+- 导出一致性（script.js `rounds_export`）：`toSelectionJson` 在开启「含工具参数」时同时输出结构化 `args`（与精简 JSON 对齐）与 `argsText`；`include` 增加 `omitted` 数组（reasoning / toolArgs / toolResult），下游可据此确认导出范围。
+- 省略可视化（新函数 `mdArgsSection` / `mdResultSection` / `omittedList`）：轮次 Markdown 与选定 Markdown 在参数/结果开关关闭时原位输出「（导出设置：不含工具参数/工具结果；对应字符仍计入统计）」，开启但无内容时输出「（无参数）」；此前为静默缺失，易被误判为日志无参数。
+- 导出反馈（script.js `handle_export`）：新增 `optionsSummary` / `exportBaseName` / `exportStamp`，所有导出（含轮次、选定）完成后回写状态提示，显示本次「推理 / 参数 / 结果」开关状态；完整 JSON 提示恒含原文。
+- 界面（index.html / style.css）：导出组拆为「导出范围」「附加内容」两段标签并加 `.export-note` 说明（未勾选内容会标注省略、字符统计恒定保留、完整 JSON 恒含原文）；三个复选框 tooltip 同步为「作用于哪些导出格式」。
+- 验证：DOM 打桩 + 真实 example 全流程（加载 → 全选轮次 → 各格式导出）31 项断言通过——参数关闭时 JSON 无 `args`/`argsText` 但保留 `argsLength`、`include.omitted` 含 toolArgs、Markdown 标注省略；参数开启时输出结构化 args 与原文、CSV 由 10 列扩到 11 列、Markdown 增列、轮次 Markdown 12 次调用均无省略标记；完整 JSON 恒含参数与结果；example 统计不回归（8 迭代 / 7 工具轮 / 12 调用 / 读 376 / 写 12702）。验证后删除临时脚本。
+<!-- @anchor: log_007_end -->
+
+<!-- @anchor: log_008 -->
+## 工具参数与工具结果彻底分开导出 + 结果附录卷
+- 独立选项收尾（script.js `export_builders` / `rounds_export`）：`readExportOptions` 新增 `resultAppendix`；`failReasonText` 改为接收 opts——「含工具结果」关闭时失败原因只输出「（结果原文未导出，N 字符）」占位，开着时首行截断到 200 字符，确保结果原文不会从失败原因列渗漏；精简 JSON / CSV / Markdown / 纯文本 / 轮次与选定 Markdown / 选定 JSON 全部改传 opts。
+- 结果附录（新锚点 `export_appendix`）：`addAppendix` / `appendixPointer` / `mdAppendix` / `txtAppendix` 把结果原文集中到文末「附录：工具结果」，正文只留 `→ 附录 Rn`（表格列改名为「工具结果（附录引用）」，轮次 Markdown 输出「结果原文见文末附录 Rn」）；`toMarkdown` / `toRoundsMarkdown` / `toPlain` 均支持，开关 `#exportResultAppendix` 默认勾选，取消即恢复内联。
+- 单卷导出（新锚点 `export_volumes`）：`toArgsMarkdown` / `toResultMarkdown` 分别只输出参数原文或结果原文（`# 工具参数卷` / `# 工具结果卷`，含参数与结果字符分项合计），互不掺杂，也不受附加项开关影响；`handleExport` 新增 `args-md` / `result-md` 分支与 `exportVolume` 文件名（`_args_` / `_results_`）。
+- 统计口径（parse.js `parse_analyze`）：summary 增加 `argsChars` / `resultChars` 分项合计，`summarizeView` 同步输出，导出头部显示「参数字符 / 结果字符」；`toJson` / `toSelectionJson` 的 `include` 增加 `toolResultMode`（appendix / inline）。
+- 界面（index.html）：附加内容组标注「各自独立」，三个复选框 tooltip 明确互不影响；新增「结果移到文末附录」开关与「仅参数 Markdown / 仅结果 Markdown」按钮，导出组拆为「整份导出 / 单卷导出 / 选定」三段标签。
+- 验证：DOM 打桩加载 script.js + 真实 example，48 项断言通过（全关时各格式无结果原文、只参数时无 resultText 且 Markdown 无结果列、只结果内联/附录两种形态、附录引用编号 R1 且原文仅出现在附录之后、单卷互不掺杂、选定导出 toolResultMode、按钮分发与状态回显）；静态自检（id / 按钮 / CSS 类）通过；example 统计不回归（8 迭代 / 7 工具轮 / 12 调用 / 读 376 / 写 12702，参数 13837 / 结果 621 字符；gz 一致）。验证后清理 tmp 临时脚本。
+<!-- @anchor: log_008_end -->
+
+
 <!-- @anchor: update_log_end -->
 <!-- @anchor: update_log_end_end -->
